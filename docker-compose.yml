@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3'
+
+services:
+
+  airport-container:
+    container_name: airport-container
+    image: airport-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/airport-volume
+    ports:
+      - 9090:8080

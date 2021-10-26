@@ -1,0 +1,5 @@
+# Dockerfile
+FROM openjdk:11-jdk-slim
+EXPOSE 8080
+COPY target/airport-api.jar airport-api.jar
+CMD java -jar airport-api.jar
