@@ -9,6 +9,7 @@ import com.sapient.Airport_Application.jwt.JwtUtil;
 import com.sapient.Airport_Application.jwt.MyUserDetailsService;
 import com.sapient.Airport_Application.services.IAirportFrequencyService;
 import com.sapient.Airport_Application.services.IAirportService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Validated
+@Slf4j
 @RestController
 public class AirportController {
 
@@ -46,14 +48,14 @@ public class AirportController {
 
     @GetMapping("/airports")
     public ResponseEntity<?> getAllAirports() {
-        LOG.info("Airports are Retrieved");
+        log.info("Airports are Retrieved");
         return new ResponseEntity<>(airportService.listAllAirports(), HttpStatus.OK);
     }
 
     @GetMapping("/airports/{id}")
     public ResponseEntity<Airport> getAirportById(@PathVariable(value = "id") Long airportId)
             throws ObjectNotFoundException {
-        LOG.info("Airport is retrieved with a particular id : " + airportId);
+        log.info("Airport is retrieved with a particular id : " + airportId);
         return airportService.findAirportsById(airportId).map(airport -> new ResponseEntity<>(airport,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -61,40 +63,40 @@ public class AirportController {
     @GetMapping("/airportName/{name}")
     public ResponseEntity<List<Airport>> getAirportByName(@PathVariable(value = "name") String name)
             throws ObjectNotFoundException {
-        LOG.info("Airport is retrieved with a particular name : " + name);
+        log.info("Airport is retrieved with a particular name : " + name);
         return new ResponseEntity<>(airportService.findAirportsByCountry(name),HttpStatus.OK);
     }
 
     @GetMapping("/airportType/{type}")
     public ResponseEntity<List<Airport>> getAirportByType(@PathVariable(value = "type") String type)
             throws ObjectNotFoundException {
-        LOG.info("Airport is retrieved with a particular type : " + type);
+        log.info("Airport is retrieved with a particular type : " + type);
        return new ResponseEntity<>(airportService.findAirportsByType(type),HttpStatus.OK);
     }
 
     @GetMapping("/airportCountry/{countryName}")
     public ResponseEntity<List<Airport>> getAirportByCountry(@PathVariable(value = "countryName") String countryName)
             throws ObjectNotFoundException {
-        LOG.info("Airport is retrieved with a particular country : " + countryName);
+        log.info("Airport is retrieved with a particular country : " + countryName);
         return new ResponseEntity<>(airportService.findAirportsByCountry(countryName),HttpStatus.OK);
     }
 
     @GetMapping("/airportsSorted/{sortedKey}")
     public ResponseEntity<?> getAllAirportsSorted(@PathVariable(value = "sortedKey") String sortedKey) {
-        LOG.info("Airports are Retrieved in sorted order");
+        log.info("Airports are Retrieved in sorted order");
         return new ResponseEntity<>(airportService.airportsSorted(sortedKey), HttpStatus.OK);
     }
 
     @GetMapping("/airportsFrequency")
     public ResponseEntity<?> getAllAirportsFrequencies() {
-        LOG.info("Airports Frequencies are Retrieved");
+        log.info("Airports Frequencies are Retrieved");
         return new ResponseEntity<>(airportFrequencyService.listAllAirportFrequencies(), HttpStatus.OK);
     }
 
     @GetMapping("/airportsFrequency/{id}")
     public ResponseEntity<AirportFrequency> getAirportFrequencyById(@PathVariable(value = "id") Long airportId)
             throws ObjectNotFoundException {
-        LOG.info("Airport Frequency is retrieved with a particular id : " + airportId);
+        log.info("Airport Frequency is retrieved with a particular id : " + airportId);
         return airportFrequencyService.findFrequenciesById(airportId).map(airport -> new ResponseEntity<>(airport,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -118,6 +120,7 @@ public class AirportController {
         final String jwt = jwtToken.generateToken(userDetails);
 
 
+        log.info("JWT Generated Successfully: {} ",jwt);
         // send token in response.
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }

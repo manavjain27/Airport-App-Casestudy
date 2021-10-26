@@ -1,8 +1,15 @@
 package com.sapient.Airport_Application.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Getter
+@Setter
+@ToString
 @Entity
 public class Country {
     @Id
@@ -11,35 +18,4 @@ public class Country {
     private String name;
     private String continent;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getContinent() {
-        return continent;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setContinent(String continent) {
-        this.continent = continent;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

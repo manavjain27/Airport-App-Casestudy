@@ -1,26 +1,17 @@
 package com.sapient.Airport_Application.jwt;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Component
 public class AuthenticationResponse {
 
     String jwt;
-
-    public String getJwt() {
-        return jwt;
-    }
-
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public AuthenticationResponse(String jwt) {
-        super();
-        this.jwt = jwt;
-    }
-
-    public AuthenticationResponse() {
-        super();
-    }
 }

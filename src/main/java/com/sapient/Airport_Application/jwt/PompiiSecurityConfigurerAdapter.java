@@ -50,9 +50,8 @@ public class PompiiSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/h2-console/**");
+        web.ignoring().antMatchers("/h2-console/**")
+                .antMatchers("/actuator/health");
     }
 }
 
