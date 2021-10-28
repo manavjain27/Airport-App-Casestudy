@@ -1,7 +1,7 @@
 package com.sapient.Airport_Application.controller;
 
 import com.sapient.Airport_Application.domain.Region;
-import com.sapient.Airport_Application.exceptions.ObjectNotFoundException;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.services.IRegionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,32 +30,30 @@ public class RegionController {
 
     @GetMapping("/regions/{id}")
     public ResponseEntity<Region> getRegionById(@PathVariable(value = "id") Long regionId)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Region is retrieved with a particular id : " + regionId);
-        return regionService.findRegionById(regionId).map(region -> new ResponseEntity<>(region,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(regionService.findRegionById(regionId),HttpStatus.OK);
     }
 
     @GetMapping("/regionName/{name}")
     public List<Region> getRegionByName(@PathVariable(value = "name") String name)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Region is retrieved with a particular name : " + name);
         return regionService.findRegionByName(name);
     }
 
     @GetMapping("/regionContinent/{continent}")
     public List<Region> getRegionByContinent(@PathVariable(value = "continent") String continent)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Country is retrieved with a particular continent : " + continent);
         return regionService.findRegionsByContinent(continent);
     }
 
     @GetMapping("/regionCode/{code}")
     public ResponseEntity<Region> getRegionByCode(@PathVariable(value = "code") String code)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Region is retrieved with a particular code : " + code);
-        return regionService.findRegionByCode(code).map(regionCode -> new ResponseEntity<>(regionCode,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(regionService.findRegionByCode(code),HttpStatus.OK);
     }
 
     @GetMapping("/regionsSorted/{name}")

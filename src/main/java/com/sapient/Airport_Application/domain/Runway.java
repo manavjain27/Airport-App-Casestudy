@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @ToString
 @Entity
 public class Runway {
+
     @Id
     private Long  id;
     private Long airport_ref;

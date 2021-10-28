@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 public class AirportsInMemoryDB implements CommandLineRunner {
 
     @Autowired
+    IAirportsDAO airportsDAO;
+    @Autowired
     IRunwayDAO runwayDAO;
     @Autowired
     INavAidsDAO navAidsDAO;
@@ -105,6 +107,7 @@ public class AirportsInMemoryDB implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Loading CSV Data into H2 Database");
+        airportsDAO.saveAll(airportsDB);
         runwayDAO.saveAll(runwaysDB);
         navAidsDAO.saveAll(navaidsDB);
         regionDAO.saveAll(regionsDB);

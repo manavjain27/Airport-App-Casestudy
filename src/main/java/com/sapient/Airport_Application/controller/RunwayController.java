@@ -1,7 +1,7 @@
 package com.sapient.Airport_Application.controller;
 
 import com.sapient.Airport_Application.domain.Runway;
-import com.sapient.Airport_Application.exceptions.ObjectNotFoundException;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.services.IRunwayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,9 @@ public class RunwayController {
 
     @GetMapping("/runways/{id}")
     public ResponseEntity<Runway> getRunwayById(@PathVariable(value = "id") Long runwayId)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Runway is retrieved with a particular id : " + runwayId);
-        return runwayService.findRunwaysById(runwayId).map(runway -> new ResponseEntity<>(runway,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(runwayService.findRunwaysById(runwayId),HttpStatus.OK);
     }
 
     @GetMapping("/runwaysSorted/{sortedKey}")

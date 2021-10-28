@@ -5,14 +5,15 @@ import com.sapient.Airport_Application.dao.ICountriesDAO;
 import com.sapient.Airport_Application.dao.INavAidsDAO;
 import com.sapient.Airport_Application.dao.IRegionDAO;
 import com.sapient.Airport_Application.domain.NavAid;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.services.INavService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NavaidServiceImpl implements INavService {
@@ -47,7 +48,7 @@ public class NavaidServiceImpl implements INavService {
     }
 
     @Override
-    public Optional<NavAid> findNavaidById(Long id) {
-        return navAidsDAO.findById(id);
+    public NavAid findNavaidById(Long id) {
+        return navAidsDAO.findById(id).orElseThrow(() -> new AirportApplicationException("No navaid found for id "+id, HttpStatus.NOT_FOUND));
     }
 }

@@ -5,15 +5,16 @@ import com.sapient.Airport_Application.dao.ICountriesDAO;
 import com.sapient.Airport_Application.dao.INavAidsDAO;
 import com.sapient.Airport_Application.dao.IRegionDAO;
 import com.sapient.Airport_Application.domain.Region;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.services.IRegionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,13 +55,13 @@ public class RegionServiceImpl implements IRegionService {
     }
 
     @Override
-    public Optional<Region> findRegionById(Long id) {
-        return regionDAO.findById(id);
+    public Region findRegionById(Long id) {
+        return regionDAO.findById(id).orElseThrow(() -> new AirportApplicationException("No region found for id "+id, HttpStatus.NOT_FOUND));
     }
 
     @Override
-    public Optional<Region> findRegionByCode(String code) {
-        return regionDAO.findByCode(code);
+    public Region findRegionByCode(String code) {
+        return regionDAO.findByCode(code).orElseThrow(() -> new AirportApplicationException("No region found for id "+code, HttpStatus.NOT_FOUND));
     }
 
     @Override

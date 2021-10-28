@@ -1,7 +1,7 @@
 package com.sapient.Airport_Application.controller;
 
 import com.sapient.Airport_Application.domain.NavAid;
-import com.sapient.Airport_Application.exceptions.ObjectNotFoundException;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.services.INavService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +30,14 @@ public class NavaidController {
 
     @GetMapping("/navaids/{id}")
     public ResponseEntity<NavAid> getNavaidById(@PathVariable(value = "id") Long navId)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Navaid is retrieved with a particular id : " + navId);
-        return navService.findNavaidById(navId).map(navAid -> new ResponseEntity<>(navAid,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(navService.findNavaidById(navId),HttpStatus.OK);
     }
 
     @GetMapping("/navaidName/{name}")
     public List<NavAid> getNavaidByName(@PathVariable(value = "name") String name)
-            throws ObjectNotFoundException {
+            throws AirportApplicationException {
         log.info("Navaid is retrieved with a particular name : " + name);
         return navService.findNavaidByName(name);
     }

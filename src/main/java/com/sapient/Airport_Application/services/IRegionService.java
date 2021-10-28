@@ -3,7 +3,6 @@ package com.sapient.Airport_Application.services;
 import com.sapient.Airport_Application.domain.Region;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IRegionService {
 
@@ -13,9 +12,9 @@ public interface IRegionService {
 
     List<Region> findRegionsByContinent(String continent);
 
-    Optional<Region> findRegionById(Long id);
+    Region findRegionById(Long id);
 
-    Optional<Region> findRegionByCode(String code);
+    Region findRegionByCode(String code);
 
     List<Region> regionsSorted(String key);
 }

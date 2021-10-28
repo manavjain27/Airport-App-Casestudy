@@ -5,15 +5,13 @@ import com.sapient.Airport_Application.dao.ICountriesDAO;
 import com.sapient.Airport_Application.dao.INavAidsDAO;
 import com.sapient.Airport_Application.dao.IRegionDAO;
 import com.sapient.Airport_Application.domain.Airport;
-import com.sapient.Airport_Application.domain.Country;
-import com.sapient.Airport_Application.domain.NavAid;
-import com.sapient.Airport_Application.domain.Region;
-import com.sapient.Airport_Application.functions.FilterFunctions;
+import com.sapient.Airport_Application.exceptions.AirportApplicationException;
 import com.sapient.Airport_Application.helpers.AirportType;
 import com.sapient.Airport_Application.services.IAirportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -48,22 +46,22 @@ public class AirportServiceImpl implements IAirportService {
 
     @Override
     public List<Airport> findAirportsByName(String name) {
-        return airportsDAO.findByAirportName(name);
+        return airportsDAO.findByName(name);
     }
 
     @Override
     public List<Airport> findAirportsByType(String type) {
-        return airportsDAO.findByAirportType(type);
+        return airportsDAO.findByType(type);
     }
 
     @Override
-    public Optional<Airport> findAirportsById(Long id) {
-        return airportsDAO.findById(id);
+    public Airport findAirportsById(Long id) {
+        return airportsDAO.findById(id).orElseThrow(() -> new AirportApplicationException("No airport found for id "+id, HttpStatus.NOT_FOUND));
     }
 
     @Override
     public List<Airport> findAirportsByCountry(String country) {
-        return airportsDAO.findByAirportCountry(country);
+        return airportsDAO.findByCountryName(country);
     }
 
     @Override
@@ -73,7 +71,7 @@ public class AirportServiceImpl implements IAirportService {
 
     @Override
     public List<Airport> listAllHeliports() {
-        return airportsDAO.findByAirportType(AirportType.HELIPORT.heliport());
+        return airportsDAO.findByType(AirportType.HELIPORT.heliport());
     }
 
     @Override
