@@ -36,17 +36,17 @@ public class RegionController {
     }
 
     @GetMapping("/regionName/{name}")
-    public List<Region> getRegionByName(@PathVariable(value = "name") String name)
+    public ResponseEntity<Region> getRegionByName(@PathVariable(value = "name") String name)
             throws AirportApplicationException {
         log.info("Region is retrieved with a particular name : " + name);
-        return regionService.findRegionByName(name);
+        return new ResponseEntity<>(regionService.findRegionByName(name),HttpStatus.OK);
     }
 
     @GetMapping("/regionContinent/{continent}")
-    public List<Region> getRegionByContinent(@PathVariable(value = "continent") String continent)
+    public ResponseEntity<List<Region>> getRegionByContinent(@PathVariable(value = "continent") String continent)
             throws AirportApplicationException {
         log.info("Country is retrieved with a particular continent : " + continent);
-        return regionService.findRegionsByContinent(continent);
+        return new ResponseEntity<>(regionService.findRegionsByContinent(continent),HttpStatus.OK);
     }
 
     @GetMapping("/regionCode/{code}")

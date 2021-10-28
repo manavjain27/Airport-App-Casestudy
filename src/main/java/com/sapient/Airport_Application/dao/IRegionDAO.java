@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface IRegionDAO extends JpaRepository<Region,Long> {
     Optional<Region> findByCode(String code);
     List<Region> findByContinent(String continent);
-    List<Region> findByName(String name);
+    Optional<Region> findByName(String name);
 }

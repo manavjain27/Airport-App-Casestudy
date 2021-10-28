@@ -45,8 +45,8 @@ public class AirportServiceImpl implements IAirportService {
     }
 
     @Override
-    public List<Airport> findAirportsByName(String name) {
-        return airportsDAO.findByName(name);
+    public Airport findAirportsByName(String name) {
+        return airportsDAO.findByName(name).orElseThrow(() -> new AirportApplicationException("No airport found for name "+name, HttpStatus.NOT_FOUND));
     }
 
     @Override

@@ -45,8 +45,8 @@ public class RegionServiceImpl implements IRegionService {
     }
 
     @Override
-    public List<Region> findRegionByName(String name) {
-        return regionDAO.findByName(name);
+    public Region findRegionByName(String name) {
+        return regionDAO.findByName(name).orElseThrow(() -> new AirportApplicationException("No Region found for this name "+name,HttpStatus.NOT_FOUND));
     }
 
     @Override

@@ -8,7 +8,7 @@ public interface ICountryService {
 
     List<Country> listAllCountries();
 
-    List<Country> findCountryByName(String name);
+    Country findCountryByName(String name);
 
     List<Country> findCountriesByContinent(String continent);
 

@@ -41,7 +41,7 @@ public class AirportController {
     }
 
     @GetMapping("/airportName/{name}")
-    public ResponseEntity<List<Airport>> getAirportByName(@PathVariable(value = "name") String name)
+    public ResponseEntity<Airport> getAirportByName(@PathVariable(value = "name") String name)
             throws AirportApplicationException {
         log.info("Airport is retrieved with a particular name : " + name);
         return new ResponseEntity<>(airportService.findAirportsByName(name),HttpStatus.OK);

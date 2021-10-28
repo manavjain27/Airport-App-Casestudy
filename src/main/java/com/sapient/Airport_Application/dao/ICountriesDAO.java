@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ICountriesDAO extends JpaRepository<Country,Long> {
 
-    List<Country> findByName(String name);
+    Optional<Country> findByName(String name);
 
     List<Country> findByContinent(String name);
 

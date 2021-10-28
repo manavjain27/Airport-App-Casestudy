@@ -36,7 +36,7 @@ public class CountryController {
     }
 
     @GetMapping("/countryName/{name}")
-    public ResponseEntity<List<Country>> getCountryByName(@PathVariable(value = "name") String name)
+    public ResponseEntity<Country> getCountryByName(@PathVariable(value = "name") String name)
             throws AirportApplicationException {
         log.info("Country is retrieved with a particular name : " + name);
         return new ResponseEntity<>(countryService.findCountryByName(name),HttpStatus.OK);

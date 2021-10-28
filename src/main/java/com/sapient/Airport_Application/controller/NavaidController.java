@@ -23,7 +23,7 @@ public class NavaidController {
     INavService navService;
 
     @GetMapping("/navaids")
-    public ResponseEntity<?> getAllRegions() {
+    public ResponseEntity<?> getAllNavaids() {
         log.info("Navaids are Retrieved");
         return new ResponseEntity<>(navService.listAllNavaids(), HttpStatus.OK);
     }

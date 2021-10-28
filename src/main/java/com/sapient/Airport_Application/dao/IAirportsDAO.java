@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IAirportsDAO extends JpaRepository<Airport,Long> {
 
-    List<Airport> findByName(String name);
+    Optional<Airport> findByName(String name);
     List<Airport> findByType(String type);
     List<Airport> findByCountryName(String country);
 }

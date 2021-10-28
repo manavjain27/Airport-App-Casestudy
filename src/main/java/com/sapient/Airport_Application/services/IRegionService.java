@@ -8,7 +8,7 @@ public interface IRegionService {
 
     List<Region> listAllRegions();
 
-    List<Region> findRegionByName(String name);
+    Region findRegionByName(String name);
 
     List<Region> findRegionsByContinent(String continent);
 

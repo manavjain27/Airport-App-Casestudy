@@ -46,8 +46,8 @@ public class CountryServiceImpl implements ICountryService {
     }
 
     @Override
-    public List<Country> findCountryByName(String name) {
-        return countriesDAO.findByName(name);
+    public Country findCountryByName(String name) {
+        return countriesDAO.findByName(name).orElseThrow(() -> new AirportApplicationException("No country found for name "+name, HttpStatus.NOT_FOUND));
     }
 
     @Override

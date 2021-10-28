@@ -12,7 +12,7 @@ public interface IAirportService {
 
     List<Airport> listAllAirports();
 
-    List<Airport> findAirportsByName(String name);
+    Airport findAirportsByName(String name);
 
     List<Airport> findAirportsByType(String type);
 
