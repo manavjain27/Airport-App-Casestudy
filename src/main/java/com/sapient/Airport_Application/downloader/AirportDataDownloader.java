@@ -25,7 +25,7 @@ public class AirportDataDownloader {
 
 		BufferedReader reader=new BufferedReader(new StringReader(response.body()));
 		String line="";
-		List<String> airports=new ArrayList<String>();
+		List<String> airports= new ArrayList<>();
 		while((line=reader.readLine())!=null) {
 			airports.add(line.replace("\"",""));
 		}

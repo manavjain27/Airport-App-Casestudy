@@ -15,20 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class AirportsInMemoryDB implements CommandLineRunner {
-
-    @Autowired
-    IAirportsDAO airportsDAO;
-    @Autowired
-    IRunwayDAO runwayDAO;
-    @Autowired
-    INavAidsDAO navAidsDAO;
-    @Autowired
-    IRegionDAO regionDAO;
-    @Autowired
-    ICountriesDAO countriesDAO;
-    @Autowired
-    IAirportFrequencyDAO airportFrequencyDAO;
+public class AirportsInMemoryDB {
 
     private static List<Airport> airportsDB = null;
     private static List<Country> countriesDB = null;
@@ -103,16 +90,4 @@ public class AirportsInMemoryDB implements CommandLineRunner {
         return runwaysDB;
     }
 
-
-    @Override
-    public void run(String... args) throws Exception {
-        log.info("Loading CSV Data into H2 Database");
-        airportsDAO.saveAll(airportsDB);
-        runwayDAO.saveAll(runwaysDB);
-        navAidsDAO.saveAll(navaidsDB);
-        regionDAO.saveAll(regionsDB);
-        countriesDAO.saveAll(countriesDB);
-        airportFrequencyDAO.saveAll(airportFrequenciesDB);
-
-    }
 }
